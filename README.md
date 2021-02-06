@@ -1,8 +1,8 @@
-# Shopify Challenge: [yuss.cc](https://yuss.cc) 📷
+# ShareIt: [shareit.yuss.cc](https://shareit.yuss.cc)
 
-[yuss.cc](https://yuss.cc) is a public image repository where everyone can upload their images. This project is made as part of the application submission to Shopify Summer Internship 2021.
+[shareit.yuss.cc](https://shareit.yuss.cc) is a file sharing repository where everyone can upload and download their files with unique ID.
 
-This repository hosts the backend code for [yuss.cc](https://yuss.cc)
+This repository hosts the backend code for [shareit.yuss.cc](https://shareit.yuss.cc)
 
 ## Installation ⚙️
 
