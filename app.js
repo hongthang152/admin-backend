@@ -5,14 +5,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var CronJob = require('cron').CronJob;
-var fs = require('fs');
-var File = require('./models/file');
 
+var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var User = require('./models/user');
 
 var app = express();
+
+app.use(bodyParser.json());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,16 +43,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-var job = new CronJob('0 */12 * * *', async () => {
-  var oneWeek = new Date();
-  oneWeek = new Date(oneWeek.setDate(oneWeek.getDate() - 7));
-  var files = await File.find({ created_at: {$gte: oneWeek} });
-  for(var file of files) {
-    fs.unlinkSync(`public/files/${file.name}`);
-    await File.findByIdAndRemove(file._id);
-  }
-}, null, true, 'America/Los_Angeles');
-job.start();
 
 module.exports = app;
